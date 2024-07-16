@@ -8,11 +8,12 @@ import {
 import Layout from "@/layout/Layout";
 import Navbars from "@/pages/Navbars";
 import Footers from "@/pages/Footers";
+import Home from "./pages/Home";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Layout />}>
-      <Route index element={<div>home page</div>} />
+      <Route index element={<Home />} />
       <Route path="/navbars" element={<Navbars />} />
       <Route path="/footers" element={<Footers />} />
     </Route>
