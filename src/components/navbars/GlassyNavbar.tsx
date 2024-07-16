@@ -74,7 +74,7 @@ function GlassyNavbar() {
     >
       <div
         className={cn(
-          "relative mx-0 mt-4 flex items-center justify-between gap-2 rounded-full border border-primary bg-white p-2 text-sm font-medium md:mx-4 2xl:mx-0",
+          "relative mx-0 mt-4 flex items-center justify-between gap-2 rounded-full border border-primary bg-white p-2 text-sm font-medium",
           {
             "scrolled-navbar": isScrolled,
           }
