@@ -70,18 +70,18 @@
 
 @layer base {
   body {
-    @apply font-Inter text-foreground;
+    @apply box-border font-Inter text-foreground;
   }
 }
 
 /* custom classes */
 .container {
-  @apply mx-auto max-w-[1216px] px-4 lg:px-0;
+  @apply mx-auto max-w-[1216px] px-4;
 }
 
 /* buttons slide*/
 .primary-btn {
-  @apply hover:shadow-primary-btn-shadow focus:shadow-primary-btn-shadow transition-all duration-500;
+  @apply transition-all duration-500 hover:shadow-primary-btn-shadow focus:shadow-primary-btn-shadow;
 }
 
 .scrolled-navbar {
@@ -91,4 +91,17 @@
     rgba(255, 255, 255, 0) 101.12%
   );
   backdrop-filter: blur(21px);
+}
+
+.tree-node {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 500ms;
+}
+.tree-node > div {
+  overflow: hidden;
+}
+
+.tree-node.isOpen {
+  grid-template-rows: 1fr;
 }

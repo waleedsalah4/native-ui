@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChevronRight, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -120,15 +120,16 @@ const CategoriesTree: React.FC<AppProps> = ({ data, name }) => {
     });
   };
 
-  const renderTree = (nodes: TreeNode): React.ReactNode => {
+  const renderTree = (nodes: TreeNode, depth = 0): React.ReactNode => {
     const isExpanded = expandedNodes.has(nodes.id);
     return (
-      <div key={nodes.id} className="tree-item">
+      <div key={nodes.id} style={{ paddingLeft: depth * 30 }}>
         <div className="flex items-center gap-x-3">
           {nodes.children && (
             <button
               type="button"
-              //   className="transform transition-transform duration-300 ease-in-out"
+              aria-expanded={isExpanded}
+              title="expand/collapse the node children"
               onClick={() => handleNodeToggle(nodes.id)}
             >
               <ChevronRight
@@ -147,19 +148,21 @@ const CategoriesTree: React.FC<AppProps> = ({ data, name }) => {
               id={`checkbox-${nodes.id}`}
               checked={selectedNodes.includes(nodes.id)}
               onChange={(event) => handleNodeSelect(event, nodes.id)}
-              className="checkbox-primary checkbox checkbox-xs border-border-stroke rounded border"
+              // className="rounded border"
             />
             <span className="w-max text-gray-700">{nodes.name}</span>
           </label>
         </div>
         {nodes.children && (
           <div
-            className={`overflow-hidden pl-4 duration-300 ease-in-out ${
-              isExpanded ? "h-auto" : "h-0"
-            }`}
-            style={{ transition: "height" }}
+            className={cn("tree-node", {
+              isOpen: isExpanded,
+            })}
+            aria-hidden={!isExpanded}
           >
-            {nodes.children.map((child) => renderTree(child))}
+            <div>
+              {nodes.children.map((child) => renderTree(child, depth + 1))}
+            </div>
           </div>
         )}
       </div>

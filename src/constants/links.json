@@ -2,11 +2,21 @@
   "navLinks": [
     {
       "id": 1,
+      "name": "Accordions",
+      "href": "/accordions"
+    },
+    {
+      "id": 2,
+      "name": "Calendars",
+      "href": "/calendars"
+    },
+    {
+      "id": 3,
       "name": "Navbar",
       "href": "/navbars"
     },
     {
-      "id": 2,
+      "id": 4,
       "name": "Footers",
       "href": "/footers"
     }

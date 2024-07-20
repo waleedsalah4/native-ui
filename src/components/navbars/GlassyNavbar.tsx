@@ -12,7 +12,7 @@ const MobileMenu = ({
   closeMenu: () => void;
 }) => {
   return (
-    <div className="bg-black-13 absolute left-0 top-16 z-50 flex w-full flex-col items-center gap-y-9 rounded-2xl px-4 py-12 md:hidden">
+    <div className="absolute left-0 top-16 z-50 flex w-full flex-col items-center gap-y-9 rounded-2xl bg-[#181919] px-4 py-12 md:hidden">
       <img src={ReactLogo} alt="logo" width={55} height={40} />
       <ul className="flex flex-col gap-y-9">
         {links.navLinks.map((link) => (
@@ -66,7 +66,7 @@ function GlassyNavbar() {
   return (
     <header
       className={cn(
-        "container sticky top-0 z-50 transition-all duration-500 ease-in-out",
+        "container sticky top-4 z-50 transition-all duration-500 ease-in-out",
         {
           "top-2": isScrolled,
         }
@@ -74,7 +74,7 @@ function GlassyNavbar() {
     >
       <div
         className={cn(
-          "relative mx-0 mt-4 flex items-center justify-between gap-2 rounded-full border border-primary bg-white p-2 text-sm font-medium",
+          "relative mx-0 flex items-center justify-between gap-2 rounded-full border border-primary bg-white p-2 text-sm font-medium",
           {
             "scrolled-navbar": isScrolled,
           }

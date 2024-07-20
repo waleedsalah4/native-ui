@@ -1,11 +1,11 @@
-import treeData from "@/constants/tree-nodes.json";
-import CheckboxesTree from "@/components/checkboxes-tree/CheckboxesTree";
+import "@/assets/home-animation.css";
 function Home() {
   return (
-    <section className="container mt-20 flex flex-col gap-10">
-      <div className="flex flex-col gap-4">
-        <h1 className="text-2xl font-semibold">#Checkboxes Tree</h1>
-        <CheckboxesTree data={treeData} name="categories" />
+    <section className="container flex min-h-screen flex-col items-center justify-center gap-10">
+      <div className="loader">
+        <span>&lt;</span>
+        <span>WELCOME</span>
+        <span>/&gt;</span>
       </div>
     </section>
   );
