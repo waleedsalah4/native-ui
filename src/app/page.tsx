@@ -56,7 +56,7 @@ export default function Home() {
                     </h1>
                     <p className="mx-auto max-w-[600px] text-zinc-200 md:text-xl dark:text-zinc-100">
                       Custom ui components and hooks for rapid development, with
-                      base design that it's easy to customize to your's
+                      base design that it&#39;s easy to customize to your&#39;s
                     </p>
                   </div>
                   <div className="mx-auto w-full max-w-sm space-y-2">
