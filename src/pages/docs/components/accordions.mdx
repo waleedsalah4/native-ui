@@ -1,5 +1,10 @@
 import { Tabs } from "nextra/components";
-import BasicAccordion from "@/components/BasicAccordion";
+import BasicAccordion from "@/components/accordions/BasicAccordion";
+import InteractiveAccordion from "@/components/accordions/InteractiveAccordion";
+import InteractiveAccordion2, {
+  AccordionItem,
+} from "@/components/accordions/InteractiveAccordion2";
+import { data } from "@/constants/accordionData.ts";
 
 ### Accordions
 
@@ -104,6 +109,270 @@ import BasicAccordion from "@/components/BasicAccordion";
     export default BasicAccordion;
 
     ```
+
+</Tabs.Tab>
+</Tabs>
+
+---
+
+#### Interactive Accordion
+
+Interactive accordion, openig an accordion item make other item close if the there are open ones
+
+<Tabs items={["Preview", "Usage", "Code"]}>
+  <Tabs.Tab>
+    <div className="rounded-lg bg-gray-200 p-4 dark:bg-black">
+      <InteractiveAccordion data={data}/>
+    </div>
+  </Tabs.Tab>
+  <Tabs.Tab>
+  ```tsx
+  import BasicAccordion from "@/components/InteractiveAccordion";
+
+    const data = [
+      {
+        id: "1",
+        title: "Do you prefer Android or iOS",
+        description: "I like to use iOS products",
+      },
+      {
+        id: "2",
+        title: "Do you prefer writing CSS or Tailwind?",
+        description: "I like to use Tailwind",
+      },
+      {
+        id: "3",
+        title: "Firebase or Supabase?",
+        description: "I am using Supabase!",
+      },
+    ];
+
+  <InteractiveAccordion data={data}/>
+  ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```tsx filename="InteractiveAccordion.tsx" copy
+        import { useState } from "react";
+        import { cn } from "@/lib/utils";
+
+        interface IData {
+          id: string;
+          title: string;
+          description: string;
+        }
+
+        const AccordionTriggerIcon = ({
+          accordionOpen,
+        }: {
+          accordionOpen: boolean;
+        }) => {
+          return (
+            <svg
+              className="ml-8 shrink-0 fill-indigo-500"
+              width="16"
+              height="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                y="7"
+                width="16"
+                height="2"
+                rx="1"
+                className={`origin-center transform transition duration-200 ease-out ${
+                  accordionOpen && "!rotate-180"
+                }`}
+              />
+              <rect
+                y="7"
+                width="16"
+                height="2"
+                rx="1"
+                className={`origin-center rotate-90 transform transition duration-200 ease-out ${
+                  accordionOpen && "!rotate-180"
+                }`}
+              />
+            </svg>
+          );
+        };
+
+        function InteractiveAccordion({ data }: { data: IData[] }) {
+          const [selected, setSelected] = useState<string | null>(null);
+
+          return (
+            <ul className="space-y-4">
+              {data.map((item) => (
+                <li key={item.id}>
+                  <button
+                    className="flex w-full items-center justify-between"
+                    title="expand/collapse the accordion description"
+                    onClick={() => {
+                      if (selected === item.id) {
+                        setSelected(null);
+                      } else {
+                        setSelected(item.id);
+                      }
+                    }}
+                    aria-expanded={selected === item.id}
+                  >
+                    <p>{item.title}</p>
+                    <AccordionTriggerIcon accordionOpen={selected === item.id} />
+                  </button>
+                  <div
+                    aria-hidden={selected !== item.id}
+                    className={cn(
+                      "grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-in-out",
+                      {
+                        "grid-rows-[1fr]": selected === item.id,
+                      }
+                    )}
+                  >
+                    <div className="overflow-hidden px-4 text-green-500">
+                      {item.description}
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          );
+        }
+
+        export default InteractiveAccordion;
+
+    ```
+
+  </Tabs.Tab>
+</Tabs>
+
+---
+
+#### Interactive Accordion 2
+
+Interactive accordion 2, is the same as previous example but with different implemntaion as you can make the accordion trigger and content any elemet you want.
+
+<Tabs items={["Preview", "Usage", "Code"]}>
+  <Tabs.Tab>
+    <div className="rounded-lg bg-gray-200 dark:bg-black p-4">
+      <InteractiveAccordion2 value={null}>
+        <AccordionItem value="1" trigger="Item 1">
+          Lorem ipsum dolor sit, consectetur .
+        </AccordionItem>
+        <AccordionItem value="2" trigger="Item 2">
+          Lorem ipsum dolor sit, consectetur.
+        </AccordionItem>
+        <AccordionItem value="3" trigger="Item 3">
+          Lorem ipsum dolor sit, consectetur.
+        </AccordionItem>
+    </InteractiveAccordion2>
+    </div>
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```tsx
+    import InteractiveAccordion2, {AccordionItem} from "@/components/accordions/InteractiveAccordion2";
+
+    <InteractiveAccordion2 value={null}>
+      <AccordionItem value="1" trigger="Item 1">
+        Lorem ipsum dolor sit, consectetur .
+      </AccordionItem>
+      <AccordionItem value="2" trigger="Item 2">
+        Lorem ipsum dolor sit, consectetur.
+      </AccordionItem>
+      <AccordionItem value="3" trigger="Item 3">
+        Lorem ipsum dolor sit, consectetur.
+      </AccordionItem>
+    </InteractiveAccordion2>
+
+    ```
+
+</Tabs.Tab>
+<Tabs.Tab>
+
+```tsx filename="InteractiveAccordion2.tsx" copy
+import { createContext, useContext, useRef, useState, ReactNode } from "react";
+import { ChevronDown } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+interface AccordionContextType {
+  selected: string | null;
+  setSelected: React.Dispatch<React.SetStateAction<string | null>>;
+}
+
+interface AccordionItemProps {
+  children: ReactNode;
+  value: string;
+  trigger: ReactNode;
+}
+
+interface InteractiveAccordion2Props {
+  children: ReactNode;
+  value: string | null;
+  className?: string;
+  // onChange?: (value: string | null) => void;
+}
+
+const AccordionContext = createContext<AccordionContextType | null>(null);
+
+export default function InteractiveAccordion2({
+  children,
+  value,
+  className,
+  // onChange,
+}: InteractiveAccordion2Props) {
+  const [selected, setSelected] = useState<string | null>(value);
+
+  // useEffect(() => {
+  //   onChange?.(selected);
+  // }, [selected]); add this if you will have a parent component and you need to something with the selected value
+
+  return (
+    <ul className={cn(className)}>
+      <AccordionContext.Provider value={{ selected, setSelected }}>
+        {children}
+      </AccordionContext.Provider>
+    </ul>
+  );
+}
+
+export function AccordionItem({
+  children,
+  value,
+  trigger,
+}: AccordionItemProps) {
+  const context = useContext(AccordionContext);
+  if (!context) {
+    throw new Error(
+      "AccordionItem must be used within an AccordionContext.Provider"
+    );
+  }
+  const { selected, setSelected } = context;
+  const open = selected === value;
+
+  const ref = useRef<HTMLDivElement>(null);
+
+  return (
+    <li className="border-b bg-white">
+      <header
+        role="button"
+        onClick={() => setSelected(open ? null : value)}
+        className="flex items-center justify-between p-4 font-medium"
+      >
+        {trigger}
+        <ChevronDown
+          size={16}
+          className={`transition-transform ${open ? "rotate-180" : ""}`}
+        />
+      </header>
+      <div
+        className="overflow-y-hidden transition-all"
+        style={{ height: open ? ref.current?.offsetHeight || 0 : 0 }}
+      >
+        <div className="p-4 pt-2" ref={ref}>
+          {children}
+        </div>
+      </div>
+    </li>
+  );
+}
+```
 
 </Tabs.Tab>
 </Tabs>
