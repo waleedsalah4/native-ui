@@ -1,0 +1,93 @@
+{
+  "footerLinks": [
+    {
+      "id": 1,
+      "name": "Title",
+      "urls": [
+        {
+          "id": 1,
+          "name": "sub 1",
+          "href": "#"
+        },
+        {
+          "id": 2,
+          "name": "sub 2",
+          "href": "#"
+        },
+        {
+          "id": 3,
+          "name": "sub 4",
+          "href": "#"
+        },
+        {
+          "id": 4,
+          "name": "sub 5",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Title 2",
+      "urls": [
+        {
+          "id": 1,
+          "name": "sub 1",
+          "href": "#"
+        },
+        {
+          "id": 2,
+          "name": "sub 2",
+          "href": "#"
+        },
+        {
+          "id": 3,
+          "name": "sub 4",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Title 3",
+      "urls": [
+        {
+          "id": 1,
+          "name": "sub 1",
+          "href": "#"
+        },
+        {
+          "id": 2,
+          "name": "sub 2",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Title 4",
+      "urls": [
+        {
+          "id": 1,
+          "name": "sub 1",
+          "href": "#"
+        },
+        {
+          "id": 2,
+          "name": "sub 2",
+          "href": "#"
+        },
+        {
+          "id": 3,
+          "name": "sub 4",
+          "href": "#"
+        }
+      ]
+    }
+  ],
+  "termsLinks": [
+    { "id": 1, "name": "Terms of Services", "href": "#" },
+    { "id": 2, "name": "Privacy Policy", "href": "#" },
+    { "id": 3, "name": "Cookies", "href": "#" }
+  ]
+}
