@@ -1,0 +1,382 @@
+import { Tabs } from "nextra/components";
+import BasicTree from "@/components/trees/BasicTree";
+import CheckboxesTree from "@/components/trees/CheckboxesTree";
+import treeData from "@/constants/tree-nodes.json";
+
+### Trees
+
+Multiple-level structure lists.
+
+#### Basic Tree
+
+This Tree is represented as folders structure that lets you view hierarchical lists of data with nested levels that can be expanded and collapsed.
+
+<Tabs items={["Preview", "Usage", "Code"]}>
+  <Tabs.Tab>
+    <BasicTree nodes={treeData.basicTreeNodes} />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```tsx copy
+        import BasicTree from "@/components/BasicTree";
+
+        const nodesDataExample = [
+            {
+                "id": 0,
+                "name": "Home",
+                "folders": [
+                    {
+                        "id": 1,
+                        "name": "Movies",
+                        "folders": [
+                            {
+                                "id": 11,
+                                "name": "Action",
+                                "folders": [
+                                    {
+                                        "id": 111,
+                                        "name": "2000s",
+                                        "folders": [
+                                            {
+                                                "id": 1111,
+                                                "name": "Harry potter"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "id": 1112,
+                                        "name": "2006s",
+                                        "folders": [
+                                            {
+                                                "id": 11241,
+                                                "name": "The Prestige"
+                                            }
+                                         ]
+                                    }
+                                ]
+                            },
+                            {
+                                "id": 12,
+                                "name": "Comedy",
+                                "folders": [{ "id": 121, "name": "1994s", "folders": [] }]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 2,
+                        "name": "Music",
+                        "folders": [
+                            { "id": 21, "name": "Rock", "folders": [] },
+                            { "id": 22, "name": "Classical", "folders": [] }
+                        ]
+                    },
+                    { "id": 3, "name": "Pictures", "folders": [] },
+                    { "id": 4, "name": "passwords.txt" }
+                ]
+            }
+        ]
+
+        function Tree(){
+            return(
+                <BasicTree nodes={nodesDataExample} />
+            )
+        }
+    ```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```tsx filename="BasicTree.tsx" copy
+        import { useState } from "react";
+        import { FolderClosed, File, ChevronRight } from "lucide-react";
+
+        interface INodes {
+            id: number;
+            name: string;
+            folders?: INodes[];
+        }
+
+        function BasicTree({ nodes }: { nodes: INodes[] }) {
+            return (
+                <div className="max-w-sm p-8">
+                    <ul className="pl-6">
+                        {nodes.map((node) => (
+                            <Folder folder={node} key={node.id} />
+                        ))}
+                    </ul>
+                </div>
+            );
+        }
+
+        function Folder({ folder }: { folder: INodes }) {
+            const [isOpen, setIsOpen] = useState(false);
+            return (
+                <li className="my-1.5">
+                    <span className="flex items-center gap-1.5">
+                        {folder.folders && folder.folders.length > 0 && (
+                            <button onClick={() => setIsOpen((prevState) => !prevState)}>
+                                <ChevronRight className={`size-4 text-gray-500 transition-transform duration-300 ease-in-out ${isOpen ? "rotate-90" : "rotate-0"}`}
+                                />
+                            </button>
+                        )}
+                        {folder.folders ? (
+                            <FolderClosed
+                                className={`size-6 text-yellow-500 ${folder.folders?.length === 0 ? "ml-[22px]" : ""}`}
+                            />
+                            ) : (
+                                <File className="ml-[22px] size-6 text-black dark:text-white" />
+                            )
+                        }
+                        {folder.name}
+                    </span>
+                    <div
+                        className={`grid transition-all duration-300 ease-in-out ${
+                        isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                        }`}
+                    >
+                        <ul className="overflow-hidden pl-6">
+                            {folder?.folders?.map((nestedFolder) => (
+                                <Folder folder={nestedFolder} key={nestedFolder.id} />
+                            ))}
+                        </ul>
+                    </div>
+                </li>
+            );
+        }
+
+        export default BasicTree;
+    ```
+
+  </Tabs.Tab>
+</Tabs>
+
+---
+
+#### Checkboxes Tree
+
+Checkboxes Tree is a `Controlled tree` that view hierarchical lists of data with nested levels that can be expanded and collapsed and lets parent nodes reflect the status of child nodes more intelligently
+
+<Tabs items={["Preview", "Usage", "Code"]}>
+  <Tabs.Tab>
+    <CheckboxesTree data={treeData.checkboxesNodes} />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```tsx copy
+        import CheckboxesTree from "@/components/CheckboxesTree";
+        
+        const checkboxesNodes = [{
+            "id": 1,
+            "name": "Root",
+            "parent_id": 0,
+            "children": [
+                {
+                    "id": 2,
+                    "name": "Child 1",
+                    "parent_id": 1,
+                    "children": [
+                        {
+                            "id": 3,
+                            "name": "Grandchild 1.1",
+                            "parent_id": 2
+                        },
+                        {
+                            "id": 4,
+                            "name": "Grandchild 1.2",
+                            "parent_id": 2
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "name": "Child 2",
+                    "parent_id": 1,
+                    "children": [
+                        {
+                            "id": 6,
+                            "name": "Grandchild 2.1",
+                            "parent_id": 5
+                        }
+                    ]
+                }
+            ]
+        }]
+
+        fucntion Tree(){
+            return (
+
+                <CheckboxesTree data={checkboxesNodes} name="items" />
+                // add the name you want in case you will use it for a form or another thing
+            )
+        }
+    ```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```tsx filename="CheckboxesTree.tsx" copy
+        import { useState } from "react";
+        import { ChevronRight } from "lucide-react";
+        import { cn } from "@/lib/utils";
+
+        interface TreeNode {
+            id: number;
+            name: string;
+            parent_id?: number;
+            children?: TreeNode[];
+        }
+
+        export interface AppProps {
+            data: TreeNode[];
+            name: string;
+        }
+
+        // BFS algorithm to find node by its ID
+        const bfsSearch = (graph: TreeNode[], targetId: number): TreeNode | null => {
+            const queue = [...graph];
+            while (queue.length > 0) {
+                const currNode = queue.shift();
+                if (currNode) {
+                    if (currNode.id === targetId) {
+                        return currNode;
+                    }
+                    if (currNode.children) {
+                        queue.push(...currNode.children);
+                    }
+                }
+            }
+        return null;
+        };
+
+        const CheckboxesTree: React.FC<AppProps> = ({ data, name }) => {
+            const [selectedNodes, setSelectedNodes] = useState<number[]>([]);
+            const [expandedNodes, setExpandedNodes] = useState<Set<number>>(new Set());
+
+            const getAllIds = (node: TreeNode, idList: number[] = []): number[] => {
+                idList.push(node.id);
+                if (node.children) {
+                    node.children.forEach((child) => getAllIds(child, idList));
+                }
+                return idList;
+            };
+
+            const getAllChild = (id: number): number[] => {
+                const node = bfsSearch(data, id);
+                if (node) {
+                    return getAllIds(node);
+                }
+                return [];
+            };
+
+            const getAllFathers = (id: number, list: number[] = []): number[] => {
+                const node = bfsSearch(data, id);
+                if (node && node.parent_id) {
+                    const parentId = Number(node.parent_id);
+                    list.push(parentId);
+                    return getAllFathers(parentId, list);
+                }
+                return list;
+            };
+
+            const isAllChildrenChecked = (node: TreeNode, list: number[]): boolean => {
+                const allChild = getAllChild(node.id);
+                const nodeIdIndex = allChild.indexOf(node.id);
+                allChild.splice(nodeIdIndex, 1);
+
+                return allChild.every((nodeId) => selectedNodes.concat(list).includes(nodeId));
+            };
+
+            const handleNodeSelect = (
+                event: React.ChangeEvent<HTMLInputElement>,
+                nodeId: number
+            ): void => {
+                event.stopPropagation();
+                const allChild = getAllChild(nodeId);
+                const fathers = getAllFathers(nodeId);
+
+                if (selectedNodes.includes(nodeId)) {
+                    setSelectedNodes((prevSelectedNodes) =>
+                        prevSelectedNodes.filter((id) => !allChild.concat(fathers).includes(id))
+                    );
+                } else {
+                    const ToBeChecked = allChild;
+                    for (let i = 0; i < fathers.length; ++i) {
+                        const node = bfsSearch(data, fathers[i]);
+                        if (node && isAllChildrenChecked(node, ToBeChecked)) {
+                            ToBeChecked.push(fathers[i]);
+                        }
+                    }
+                    setSelectedNodes((prevSelectedNodes) =>
+                        [...prevSelectedNodes].concat(ToBeChecked)
+                    );
+                }
+            };
+
+            const handleNodeToggle = (nodeId: number) => {
+                setExpandedNodes((prevExpandedNodes) => {
+                    const newExpandedNodes = new Set(prevExpandedNodes);
+                    if (newExpandedNodes.has(nodeId)) {
+                        newExpandedNodes.delete(nodeId);
+                    } else {
+                        newExpandedNodes.add(nodeId);
+                    }
+                    return newExpandedNodes;
+                });
+            };
+
+            const renderTree = (nodes: TreeNode, depth = 0): React.ReactNode => {
+                const isExpanded = expandedNodes.has(nodes.id);
+                return (
+                <div key={nodes.id} style={{ paddingLeft: depth * 30 }}>
+                    <div className="flex items-center gap-x-3">
+                    {nodes.children && (
+                        <button
+                            type="button"
+                            aria-expanded={isExpanded}
+                            title="expand/collapse the node children"
+                            onClick={() => handleNodeToggle(nodes.id)}
+                        >
+                            <ChevronRight
+                                className={cn("transition-transform duration-300 ease-in-out", {
+                                "rotate-90": isExpanded,
+                                })}
+                            />
+                        </button>
+                    )}
+                    <label
+                        htmlFor={`checkbox-${nodes.id}`}
+                        className="flex cursor-pointer items-center gap-x-3"
+                    >
+                        <input
+                            type="checkbox"
+                            id={`checkbox-${nodes.id}`}
+                            checked={selectedNodes.includes(nodes.id)}
+                            onChange={(event) => handleNodeSelect(event, nodes.id)}
+                        />
+                        <span className="w-max">{nodes.name}</span>
+                    </label>
+                    </div>
+                    {nodes.children && (
+                        <div
+                            className={cn(
+                            "grid grid-rows-[0fr] overflow-hidden transition-[grid-template-rows] duration-300 ease-in-out",
+                            {
+                                "grid-rows-[1fr]": isExpanded,
+                            }
+                            )}
+                            aria-hidden={!isExpanded}
+                        >
+                            <div className="overflow-hidden">
+                                {nodes.children.map((child) => renderTree(child, depth + 1))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+                );
+            };
+
+            return <div className="max-w-sm">{data.map((node) => renderTree(node))}</div>;
+        };
+
+        export default CheckboxesTree;
+
+    ```
+
+  </Tabs.Tab>
+</Tabs>

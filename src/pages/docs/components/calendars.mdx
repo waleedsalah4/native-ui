@@ -1,0 +1,242 @@
+import { Tabs } from "nextra/components";
+import WeekCalendarUsage from "@/components/calendars/week-calendar/WeekCalendarUsage";
+
+### Calendars
+
+### Week Calendar
+
+View a week days per view with the follwing features:
+
+- ability to navigate bettween weeks
+- change year from the above select dropdwon
+- ability to disable select of days before today
+
+<Tabs items={["Preview", "Usage", "Code"]}>
+  <Tabs.Tab>
+    <WeekCalendarUsage />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```tsx copy
+        import { useState } from "react";
+        import { format } from "date-fns";
+        import WeekCalendar from "./WeekCalendar";
+
+        function Calendar() {
+            const [selectedDate, setSelectedDate] = useState(new Date());
+            return (
+                <div className="flex flex-col gap-4">
+                    <WeekCalendar
+                        selectedDate={selectedDate}
+                        getDate={(date) => setSelectedDate(date)}
+                    />
+                    <p className="text-[#B8B8B8]">
+                        Selected Date:{" "}
+                        <span className="font-semibold text-[#233d28]">
+                            {format(selectedDate, "EEEEEE, dd MMM yyyy")}
+                        </span>
+                    </p>
+                </div>
+            );
+        }
+
+        export default WeekCalendarUsage;
+    ```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```tsx filename="WeekCalendar.tsx" copy
+        import { useState, useEffect } from "react";
+        import {
+            addDays,
+            startOfWeek,
+            format,
+            startOfToday,
+            isBefore,
+            startOfDay,
+        } from "date-fns";
+        import WeekNavigation from "./WeekNavigation";
+        import YearDropdown from "./YearDropdown";
+        import { cn } from "@/lib/utils";
+
+        const WeekCalendar = ({
+            selectedDate,
+            getDate,
+            }: {
+            selectedDate: Date | null;
+            getDate: (data: Date) => void;
+        }) => {
+            const [currentDate, setCurrentDate] = useState(new Date());
+            const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+
+            useEffect(() => {
+                if (selectedDate) {
+                    setCurrentDate(selectedDate);
+                }
+            }, []);
+
+            const startOfCurrentWeek = startOfWeek(currentDate);
+            const today = startOfToday();
+
+            const daysOfWeek = Array.from({ length: 7 }, (_, i) =>
+                addDays(startOfCurrentWeek, i)
+            );
+
+            const handlePreviousWeek = () => {
+                setCurrentDate(addDays(currentDate, -7));
+            };
+
+            const handleNextWeek = () => {
+                setCurrentDate(addDays(currentDate, 7));
+            };
+
+            const handleYearChange = (year: number) => {
+                setSelectedYear(year);
+                setCurrentDate(
+                new Date(year, currentDate.getMonth(), currentDate.getDate())
+                );
+            };
+            const handleDateClick = (day: Date) => {
+                if (!isBefore(day, today)) {
+                    getDate(day);
+                }
+            };
+
+            //compare date without time
+            const isSameDay = (date1: Date, date2: Date) => {
+                return startOfDay(date1).getTime() === startOfDay(date2).getTime();
+            };
+            return (
+                <div className="w-full rounded-md shadow-md">
+                    <YearDropdown
+                        selectedYear={selectedYear}
+                        onYearChange={handleYearChange}
+                    />
+                    <WeekNavigation
+                        onPreviousWeek={handlePreviousWeek}
+                        onNextWeek={handleNextWeek}
+                        currentDate={currentDate}
+                    />
+
+                    <div className="my-4 grid grid-cols-7 gap-2 py-2">
+                        {daysOfWeek.map((day, index) => (
+                            <div
+                                key={index}
+                                className="flex flex-col items-center justify-center gap-y-2"
+                            >
+                                <span className="text-xs text-[#B8B8B8]">
+                                    {format(day, "EEEEEE")}
+                                </span>
+                                <button
+                                    type="button"
+                                    onClick={() => handleDateClick(day)}
+                                    className={cn(
+                                        "flex h-6 w-6 items-center justify-center rounded-full text-sm text-[#1A1A1A] hover:bg-[#D3D8D4] md:h-10 md:w-10 dark:text-[#DBDBDB] dark:hover:bg-[#D3D8D4]/20",
+                                        {
+                                        "bg-[#233d28] text-white": isSameDay(
+                                            day,
+                                            selectedDate || new Date()
+                                        ),
+                                        },
+                                        {
+                                        "cursor-not-allowed text-[#DBDBDB] dark:text-[#535050]":
+                                            isBefore(day, today),
+                                        }
+                                    )}
+                                >
+                                    {format(day, "d")}
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        export default WeekCalendar;
+    ```
+    ```tsx filename="YearDropdown.tsx" copy
+
+        interface YearDropdownProps {
+            selectedYear: number;
+            onYearChange: (year: number) => void;
+        }
+
+        const YearDropdown: React.FC<YearDropdownProps> = ({
+            selectedYear,
+            onYearChange,
+        }) => {
+            const years = Array.from(
+                { length: 20 },
+                (_, i) => new Date().getFullYear() - 10 + i
+            );
+
+            return (
+                <div className="mb-4 flex items-center justify-center rounded-t-md bg-[#D3D8D433]">
+                    <select
+                        value={selectedYear}
+                        onChange={(e) => onYearChange(parseInt(e.target.value))}
+                        className="text-#484848 bg-transparent p-3"
+                    >
+                        {years.map((year) => (
+                        <option key={year} value={year}>
+                            {year}
+                        </option>
+                        ))}
+                    </select>
+                </div>
+            );
+        };
+        export default YearDropdown;
+    ```
+    ```tsx filename="WeekNavigation.tsx" copy
+        import React from "react";
+        import { format } from "date-fns";
+        import { CircleArrowLeft, CircleArrowRight } from "lucide-react";
+
+        interface WeekNavigationProps {
+            onPreviousWeek: () => void;
+            onNextWeek: () => void;
+            currentDate: Date;
+        }
+
+        const WeekNavigation: React.FC<WeekNavigationProps> = ({
+            onPreviousWeek,
+            onNextWeek,
+            currentDate,
+        }) => {
+            return (
+                <div className="mb-4 flex items-center justify-between px-4">
+                    <button
+                        name="previous-month"
+                        aria-label="Go to previous month"
+                        type="button"
+                        onClick={onPreviousWeek}
+                    >
+                        <CircleArrowLeft className="w-5 text-[#B8B8B8] md:w-6" />
+                    </button>
+                    <span className="text-sm text-[#1A1A1A]">
+                        {format(currentDate, "MMMM yyyy")}
+                    </span>
+                    <button
+                        name="next-month"
+                        aria-label="Go to next month"
+                        type="button"
+                        onClick={onNextWeek}
+                    >
+                        <CircleArrowRight className="w-5 text-[#B8B8B8] md:w-6" />
+                    </button>
+                </div>
+            );
+        };
+
+        export default WeekNavigation;
+    ```
+
+  </Tabs.Tab>
+</Tabs>
+
+---
+
+### Calendar
+
+For normal `Calendar` or `Date range picker`,for now, we recommed to use shadcn [Calendar](https://ui.shadcn.com/docs/components/calendar) and [Date Range Picker](https://ui.shadcn.com/docs/components/date-picker)
