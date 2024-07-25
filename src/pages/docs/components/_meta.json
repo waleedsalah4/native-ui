@@ -1,5 +1,7 @@
 {
   "accordions": "Accordions",
   "trees": "Trees",
-  "calendars": "Calendars"
+  "calendars": "Calendars",
+  "footers": "Footers",
+  "pagination": "Pagination"
 }
