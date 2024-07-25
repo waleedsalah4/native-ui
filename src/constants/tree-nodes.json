@@ -1,0 +1,95 @@
+{
+  "checkboxesNodes": [
+    {
+      "id": 1,
+      "name": "Root",
+      "parent_id": 0,
+      "children": [
+        {
+          "id": 2,
+          "name": "Child 1",
+          "parent_id": 1,
+          "children": [
+            {
+              "id": 3,
+              "name": "Grandchild 1.1",
+              "parent_id": 2
+            },
+            {
+              "id": 4,
+              "name": "Grandchild 1.2",
+              "parent_id": 2
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "name": "Child 2",
+          "parent_id": 1,
+          "children": [
+            {
+              "id": 6,
+              "name": "Grandchild 2.1",
+              "parent_id": 5
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "basicTreeNodes": [
+    {
+      "id": 0,
+      "name": "Home",
+      "folders": [
+        {
+          "id": 1,
+          "name": "Movies",
+          "folders": [
+            {
+              "id": 11,
+              "name": "Action",
+              "folders": [
+                {
+                  "id": 111,
+                  "name": "2000s",
+                  "folders": [
+                    {
+                      "id": 1111,
+                      "name": "Harry potter"
+                    }
+                  ]
+                },
+                {
+                  "id": 1112,
+                  "name": "2006s",
+                  "folders": [
+                    {
+                      "id": 11241,
+                      "name": "The Prestige"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": 12,
+              "name": "Comedy",
+              "folders": [{ "id": 121, "name": "1994s", "folders": [] }]
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Music",
+          "folders": [
+            { "id": 21, "name": "Rock", "folders": [] },
+            { "id": 22, "name": "Classical", "folders": [] }
+          ]
+        },
+        { "id": 3, "name": "Pictures", "folders": [] },
+        { "id": 4, "name": "passwords.txt" }
+      ]
+    }
+  ]
+}
