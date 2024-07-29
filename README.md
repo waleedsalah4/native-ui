@@ -7,5 +7,13 @@ The components are not based on a specific design, just a basic design but focus
 ## The current added components:
 
 - Accordions
+- Trees
 - Footers
+- Tabs
+- Switch
+- pagination
 - Calendars (in progress)
+
+## The current added hooks:
+
+- use-debounce
