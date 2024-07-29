@@ -1,0 +1,68 @@
+import { Tabs } from "nextra/components";
+import DebounceUsage from "@/hooks/debounce/DebounceUsage";
+
+### useDebounce
+
+The `useDebounce` hook is a custom React hook designed to optimize performance by delaying the execution of a function until a specified amount of time has passed without further changes to the input value.
+
+In essence, debouncing prevents unnecessary function calls, particularly in scenarios where rapid changes in input occur, such as:
+
+- User input: Debouncing can be used to delay API calls or state updates until the user has finished typing, improving performance and reducing unnecessary network requests.
+
+<Tabs items={["Preview", "Usage", "Code"]}>
+  <Tabs.Tab>
+    <DebounceUsage />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```tsx copy
+        import { useState } from "react";
+        import { useDebounce } from "./useDebounce";
+        import TextField from "@/components/text-fields/TextField";
+
+        function DebounceUsage() {
+            const [search, setSearch] = useState("");
+            const debouncedSearch = useDebounce(search);
+            return (
+                <div className="flex flex-col gap-4 bg-black p-4 dark:bg-white">
+                    <TextField
+                        label="Search"
+                        id="search"
+                        name="search"
+                        inputMode="text"
+                        type="text"
+                        placeholder=""
+                        value={search}
+                        handleChange={(event) => setSearch(event.target.value)}
+                    />
+                    <p className="text-white dark:text-black">{debouncedSearch}</p>
+                </div>
+            );
+        }
+
+        export default DebounceUsage;
+    ```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```tsx filename="useDebounce.ts" copy
+        import { useState, useEffect } from "react";
+        export function useDebounce<T>(value: T, delay: number = 500): T {
+            const [debouncedValue, setDebouncedValue] = useState<T>(value);
+
+            useEffect(() => {
+                const handler = setTimeout(() => {
+                    setDebouncedValue(value);
+                }, delay);
+
+                return () => {
+                    clearTimeout(handler);
+                };
+            }, [value, delay]);
+
+            return debouncedValue;
+        }
+
+    ```
+
+  </Tabs.Tab>
+</Tabs>

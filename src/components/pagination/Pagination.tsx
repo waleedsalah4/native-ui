@@ -59,7 +59,7 @@ function Pagination({
         </span>
       );
       items.push(renderButton(paginationCount, page === paginationCount));
-    } else if (page >= 5 && page < paginationCount - 4) {
+    } else if (page >= 5 && page < paginationCount - 3) {
       // Show 1, ellipsis, pages around current page, ellipsis, and last page
       items.push(renderButton(1, false));
       items.push(
