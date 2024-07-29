@@ -3,5 +3,7 @@
   "trees": "Trees",
   "calendars": "Calendars",
   "footers": "Footers",
-  "pagination": "Pagination"
+  "pagination": "Pagination",
+  "tabs": "Tabs",
+  "switch": "Switch"
 }
