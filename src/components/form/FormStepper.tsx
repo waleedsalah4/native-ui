@@ -66,12 +66,13 @@ function FormStepper({ currentStep, steps }: FormStepperProps) {
   );
 }
 const steps = ["Select item", "Book a item", "choose branch", "Review"];
-const childrenArray = [
-  <div>step1</div>,
-  <div>step2</div>,
-  <div>step3</div>,
-  <div>step4</div>,
-];
+
+const childrenArray: { [key: number]: JSX.Element } = {
+  1: <div>step1</div>,
+  2: <div>step2</div>,
+  3: <div>step3</div>,
+  4: <div>step4</div>,
+};
 
 export default function FormStepperUsage() {
   const [currentStep, setCurrentStep] = useState(0);
