@@ -10,6 +10,9 @@ The components are not based on a specific design, just a basic design but focus
 - Trees
 - Footers
 - Tabs
+- Dialog
+- Modal
+- Stepper
 - Switch
 - pagination
 - Calendars (in progress)

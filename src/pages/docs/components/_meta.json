@@ -2,8 +2,11 @@
   "accordions": "Accordions",
   "trees": "Trees",
   "calendars": "Calendars",
-  "footers": "Footers",
   "pagination": "Pagination",
   "tabs": "Tabs",
-  "switch": "Switch"
+  "modal": "Modal",
+  "dialog": "Dialog",
+  "stepper": "Stepper",
+  "switch": "Switch",
+  "footers": "Footers"
 }
