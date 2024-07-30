@@ -27,4 +27,6 @@ const Dialog = forwardRef<HTMLDialogElement, Props>(
     );
   }
 );
+// Explicitly setting the displayName
+Dialog.displayName = 'Dialog';
 export default Dialog;
