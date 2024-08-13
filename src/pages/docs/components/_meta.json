@@ -8,5 +8,6 @@
   "dialog": "Dialog",
   "stepper": "Stepper",
   "switch": "Switch",
+  "carousel": "Carousel",
   "footers": "Footers"
 }
