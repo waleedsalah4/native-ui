@@ -14,6 +14,7 @@ The components are not based on a specific design, just a basic design but focus
 - Modal
 - Stepper
 - Switch
+- Carousel
 - pagination
 - Calendars (in progress)
 
