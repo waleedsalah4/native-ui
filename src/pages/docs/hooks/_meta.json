@@ -1,4 +1,9 @@
 {
   "start-with-hooks": "Start with hooks",
-  "use-debounce": "use-debounce"
+  "use-debounce": "useDebounce",
+  "use-click-outside": "useClickOutside",
+  "use-in-view": "useInView",
+  "use-media-query": "useMediaQuery",
+  "use-notification": "useNotification",
+  "use-scroll-pagination": "useScrollPagination"
 }
