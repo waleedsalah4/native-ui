@@ -1,0 +1,90 @@
+import { Tabs } from "nextra/components";
+
+The Following hook provide convenient solutions for implementing infinite scroll functionality in React applications.
+
+### useScrollPagination
+
+**`useScrollPagination`** is designed to work with a specific scrollable element. It listens for scroll events on the provided element and triggers a callback function (`handlePageChange`) when the user reaches the bottom of the element. This is particularly useful for loading more content in scenarios like chat interfaces or feeds where only a portion of the content is visible at a time.
+
+<Tabs items={["Code", "Usage"]}>
+  <Tabs.Tab>
+    ```ts copy
+        import { useCallback, useEffect, useState } from "react";
+
+        export const useScrollPagination = (
+                handlePageChange?: () => void,
+                isLoading?: boolean
+        ) => {
+            const [nodeEl, setNodeEl] = useState<HTMLElement | null>(null);
+
+            const nodeRef = useCallback((node: HTMLElement | null) => {
+                setNodeEl(node);
+            }, []);
+
+            useEffect(() => {
+                const handleScroll = () => {
+                    if (
+                        nodeEl &&
+                        Math.ceil(nodeEl.scrollTop + nodeEl.clientHeight) >=
+                        nodeEl.scrollHeight &&
+                        !isLoading
+                    ) {
+                        if (handlePageChange) handlePageChange();
+                    }
+                };
+
+                if (nodeEl) {
+                    nodeEl.addEventListener("scroll", handleScroll);
+                }
+                return () => {
+                    if (nodeEl) {
+                        nodeEl.removeEventListener("scroll", handleScroll);
+                    }
+                };
+            }, [isLoading, nodeEl, handlePageChange]);
+
+            return nodeRef;
+        };
+    ```
+
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```tsx copy
+    import { useScrollPagination } from "@/hooks/useScrollPagination";
+    const Component = () => {
+
+    const [page, setPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(false)
+        const [currentData, setCurrentData] = useState<dataType[]>([]);
+        //assuming that you fetch some data and the returned data in this format
+        /*
+        {
+            count: 50,
+            next: true,//indicates that there is more data to fetch
+            results: [
+            //some data
+            ]
+        }
+        */
+        const handlePageChange = () => {
+            if (data?.count > current.length && data?.next && !isFetching) {
+                setPage(page + 1);
+            }
+        };
+        const nodeRef = useScrollPagination(handlePageChange, isLoading);
+
+        return (
+            <ul
+                className="mt-2 max-h-48 overflow-y-auto rounded bg-white"
+                ref={nodeRef}
+            >
+                {/*render your content*/}
+            </ul>
+        )
+    }
+    ```
+
+ </Tabs.Tab>
+</Tabs>
+
+The hook include a loading state (`isLoading`) to prevent further requests while content is being fetched, ensuring a smooth user experience by avoiding duplicate calls during data loading.

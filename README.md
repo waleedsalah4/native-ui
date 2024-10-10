@@ -20,4 +20,9 @@ The components are not based on a specific design, just a basic design but focus
 
 ## The current added hooks:
 
-- use-debounce
+- useDebounce
+- useClickOutside
+- useInView
+- useMediaQuery
+- useNotification
+- useScrollPagination
