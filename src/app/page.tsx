@@ -18,10 +18,10 @@ export default function Home() {
             <nav className="flex items-center gap-x-4 pl-2">
               <Link href="/">
                 <Image
-                  src="/logo.webp"
-                  alt="LGA logo"
-                  width={55}
-                  height={40}
+                  src="/logo-white.svg"
+                  alt="logo"
+                  width={100}
+                  height={50}
                   className="pl-2"
                 />
               </Link>
@@ -29,7 +29,7 @@ export default function Home() {
                 {links.map((link) => (
                   <li
                     key={link.id}
-                    className="text-foreground bg-primary rounded-full px-2 py-2 text-[#F8FAFC] lg:px-4"
+                    className="text-foreground bg-primary rounded-full px-2 py-2 text-base font-medium text-[#F8FAFC] lg:px-4"
                   >
                     <Link href={link.href}>{link.name}</Link>
                   </li>
