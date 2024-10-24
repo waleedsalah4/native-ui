@@ -12,12 +12,12 @@ export default {
           height={40}
           className="pl-2"
         />
-        <span>Hooks/UI</span>
+        <span>Native Ui</span>
       </div>
     </>
   ),
   project: {
-    link: "https://github.com/waleedsalah4/reusable-components",
+    link: "https://github.com/waleedsalah4/native-ui",
   },
   chat: {
     link: "https://www.linkedin.com/in/waleed-salah-9b4a541b4",
@@ -29,13 +29,13 @@ export default {
       <meta property="og:title" content="HOOKS/UI" />
       <meta
         property="og:description"
-        content="HOOKS/UI is a small custom ui and hooks documentation"
+        content="Native ui is a small custom ui and hooks documentation"
       />
     </>
   ),
   useNextSeoProps() {
     return {
-      titleTemplate: "%s – hooks/UI",
+      titleTemplate: "%s – Native Ui",
     };
   },
   editLink: {
