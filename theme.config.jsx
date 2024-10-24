@@ -1,21 +1,24 @@
 import Image from "next/image";
 import { Linkedin } from "lucide-react";
+import { useTheme } from "nextra-theme-docs";
+
+const Logo = () => {
+  const { theme } = useTheme();
+  // console.log(theme);
+  return (
+    <Image
+      src={theme === "light" ? "/logo-black.svg" : "/logo-white.svg"}
+      alt="logo"
+      width={100}
+      height={50}
+      className="pl-2"
+    />
+  );
+};
 
 export default {
-  logo: (
-    <>
-      <div className="flex items-center gap-4">
-        <Image
-          src="/logo.webp"
-          alt="LGA logo"
-          width={55}
-          height={40}
-          className="pl-2"
-        />
-        <span>Native Ui</span>
-      </div>
-    </>
-  ),
+  logo: <Logo />,
+
   project: {
     link: "https://github.com/waleedsalah4/native-ui",
   },
@@ -26,7 +29,7 @@ export default {
   head: (
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <meta property="og:title" content="HOOKS/UI" />
+      <meta property="og:title" content="Native ui" />
       <meta
         property="og:description"
         content="Native ui is a small custom ui and hooks documentation"
