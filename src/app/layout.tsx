@@ -5,9 +5,9 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Hooks/UI",
+  title: "Native Ui",
   description:
-    "Hooks/UI is a small custom ui components and hooks documentation",
+    "Native Ui is a small custom ui components and hooks documentation",
 };
 
 export default function RootLayout({
