@@ -38,7 +38,7 @@ export default function Home() {
             </nav>
 
             <Link
-              href="/"
+              href="mailto:walidsalah652@gmail.com"
               className="h-10 rounded-full bg-[#6f606633] px-4 py-2 text-center text-sm font-bold leading-relaxed text-[#F8FAFC] shadow-md"
             >
               Contact us
