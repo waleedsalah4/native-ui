@@ -2,9 +2,5 @@
   "trailingComma": "es5",
   "tabWidth": 2,
   "semi": true,
-  "plugins": ["prettier-plugin-tailwindcss"],
-  "tailwindConfig": "./tailwind.config.ts",
-  "tailwindFunctions": ["clsx", "cn", "tw"],
-  "tailwindPreserveWhitespace": true,
-  "tailwindPreserveDuplicates": false
+  "plugins": ["prettier-plugin-tailwindcss"]
 }

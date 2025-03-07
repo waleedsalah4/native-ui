@@ -51,10 +51,12 @@
   background-repeat: no-repeat;
 } */
 
+.home-bg {
+  @apply dark:bg-[linear-gradient(to_top,#000_0%,hsla(0,0%,100%,0)_100%),linear-gradient(90deg,#eb367f33_0,rgb(121_40_202/0.2)_100%)] dark:bg-[size:100%_100%,100%_100%,1440px_1px] dark:bg-bottom dark:bg-no-repeat;
+}
+
 .contact-card {
-  background:
-    linear-gradient(90deg, rgb(235 54 127/ 0.2) 0, rgb(121 40 202 / 0.2) 100%),
-    linear-gradient(to top, #000 0, hsla(0, 0%, 100%, 0) 100%);
+  @apply dark:bg-[linear-gradient(90deg,rgba(235,54,127,0.2)_0%,rgba(121,40,202,0.2)_100%),linear-gradient(to_top,#000_0%,hsla(0,0%,100%,0)_100%)];
 }
 
 /*       switch              */

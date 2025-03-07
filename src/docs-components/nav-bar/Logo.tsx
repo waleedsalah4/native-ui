@@ -1,8 +1,9 @@
 "use client";
 import Image from "next/image";
 import { useTheme } from "next-themes";
+import { cn } from "@/lib/utils";
 
-const Logo = () => {
+const Logo = ({ className }: { className?: string }) => {
   const { theme } = useTheme();
 
   return (
@@ -12,7 +13,7 @@ const Logo = () => {
       alt="logo"
       width={100}
       height={50}
-      className="pl-2"
+      className={cn("pl-2", className)}
     />
   );
 };
