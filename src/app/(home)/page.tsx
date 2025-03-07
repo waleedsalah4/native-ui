@@ -1,5 +1,5 @@
 import AboutUs from "@/docs-components/home/about-us/AboutUs";
-import Technologies from "@/docs-components/home/technologies/Technologies";
+// import Technologies from "@/docs-components/home/technologies/Technologies";
 import Link from "next/link";
 
 export default function HomePage() {
