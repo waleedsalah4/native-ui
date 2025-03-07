@@ -1,9 +1,10 @@
 import AboutUs from "@/docs-components/home/about-us/AboutUs";
+import Technologies from "@/docs-components/home/technologies/Technologies";
 import Link from "next/link";
 
 export default function HomePage() {
   return (
-    <>
+    <div className="space-y-20">
       <section className="container flex min-h-screen flex-1 flex-col justify-center text-center">
         <div className="flex flex-col justify-center space-y-10 text-center">
           <div className="space-y-8">
@@ -26,6 +27,7 @@ export default function HomePage() {
         </div>
       </section>
       <AboutUs />
-    </>
+      {/* <Technologies /> */}
+    </div>
   );
 }

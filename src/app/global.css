@@ -30,6 +30,23 @@
   }
 }
 
+@theme {
+  /* --animate-orbit: orbit calc(var(--duration) * 1s) linear infinite; */
+  --animate-orbit: orbit 20s linear infinite;
+
+  @keyframes orbit {
+    0% {
+      transform: rotate(calc(var(--angle) * 1deg))
+        translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg));
+    }
+    100% {
+      transform: rotate(calc(var(--angle) * 1deg + 360deg))
+        translateY(calc(var(--radius) * 1px))
+        rotate(calc((var(--angle) * -1deg) - 360deg));
+    }
+  }
+}
+
 .glassy-navbar {
   background: linear-gradient(
     112deg,
@@ -38,18 +55,6 @@
   );
   backdrop-filter: blur(21px);
 }
-
-/* .home-bg {
-  background:
-    linear-gradient(to top, #000 0, hsla(0, 0%, 100%, 0) 100%),
-    linear-gradient(90deg, #eb367f33 0, rgb(121 40 202 / 0.2) 100%);
-  background-size:
-    100% 100%,
-    100% 100%,
-    1440px 1px;
-  background-position: bottom;
-  background-repeat: no-repeat;
-} */
 
 .home-bg {
   @apply dark:bg-[linear-gradient(to_top,#000_0%,hsla(0,0%,100%,0)_100%),linear-gradient(90deg,#eb367f33_0,rgb(121_40_202/0.2)_100%)] dark:bg-[size:100%_100%,100%_100%,1440px_1px] dark:bg-bottom dark:bg-no-repeat;
