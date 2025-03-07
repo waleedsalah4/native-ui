@@ -4,6 +4,7 @@ import InteractiveAccordion2, {
 } from "@/components/accordions/InteractiveAccordion2";
 import links from "@/constants/footer-links.json";
 import LandingSocialMediaIcons from "./LandingSocialMediaIcons";
+import Image from "next/image";
 
 function LandingFooterLinks() {
   return (
@@ -11,9 +12,11 @@ function LandingFooterLinks() {
       <div className="hidden justify-between gap-4 py-8 md:flex">
         <div className="grid justify-center md:justify-start">
           <div className="grid justify-center text-center md:justify-start">
-            <img
+            <Image
               src={"/logo.webp"}
               alt="logo"
+              height={112}
+              width={96}
               className="h-16 w-20 md:h-24 md:w-28"
             />
           </div>
@@ -68,9 +71,11 @@ function LandingFooterLinks() {
         ))}
         <div className="mb-4 grid justify-center md:justify-start">
           <div className="grid justify-center text-center md:justify-start">
-            <img
+            <Image
               src={"/logo.webp"}
               alt="logo"
+              height={112}
+              width={96}
               className="h-16 w-20 md:h-24 md:w-28"
             />
           </div>

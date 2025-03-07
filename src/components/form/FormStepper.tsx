@@ -1,4 +1,5 @@
-import { useState } from "react";
+"use client";
+import { JSX, useState } from "react";
 import { CompleteStepIcon } from "@/components/shared/Icons";
 import { cn } from "@/lib/utils";
 
@@ -17,7 +18,7 @@ function FormStepper({ currentStep, steps }: FormStepperProps) {
             className={cn(
               "relative flex w-40 flex-col items-center justify-center gap-2 transition-all duration-1000 ease-in-out",
               {
-                "ease-in-out before:absolute before:right-2/4 before:top-[27.33333%] before:h-[3px] before:w-full before:-translate-y-2/4 before:bg-[#2713C2] before:transition-all before:duration-1000 before:content-['']":
+                "ease-in-out before:absolute before:top-[27.33333%] before:right-2/4 before:h-[3px] before:w-full before:-translate-y-2/4 before:bg-[#2713C2] before:transition-all before:duration-1000 before:content-['']":
                   i !== 0,
               },
               {

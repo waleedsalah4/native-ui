@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { useDebounce } from "./useDebounce";
 import TextField from "@/components/text-fields/TextField";
@@ -15,7 +16,7 @@ function DebounceUsage() {
         type="text"
         placeholder=""
         value={search}
-        handleChange={(event) => setSearch(event.target.value)}
+        onChange={(event) => setSearch(event.target.value)}
       />
       <p className="text-white dark:text-black">{debouncedSearch}</p>
     </div>

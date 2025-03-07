@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -47,7 +48,7 @@ function InteractiveAccordion({ data }: { data: IData[] }) {
   return (
     <ul className="space-y-4">
       {data.map((item) => (
-        <li key={item.id}>
+        <li key={item.id} className="list-none">
           <button
             className="flex w-full items-center justify-between"
             title="expand/collapse the accordion description"

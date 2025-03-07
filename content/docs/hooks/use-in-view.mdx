@@ -1,0 +1,103 @@
+---
+title: useInView
+description: The useInView hook is designed to monitor whether a referenced DOM element enters the viewport.
+---
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+It leverages the [Intersection Observer API](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) to efficiently track the element’s visibility. The hook uses a `ref` to track the target element and returns a `boolean` value that can be used to trigger actions based on the element's visibility. It can be configured to either run actions every time the element enters the view or only the first time, making it useful for scenarios like lazy loading, triggering animations, or fetching data when an element becomes visible.
+
+### One-Time Trigger
+
+In the version where the hook runs only once, the state `hasBeenInView` is used to track if the element has ever entered the viewport. Once the element enters the view for the first time, the state is updated to `true`, and subsequent viewport changes are ignored. This is useful for actions that should only occur once, like triggering a one-time animation or loading content only when it's initially visible.
+
+<Tabs items={["Code"]}>
+  <Tab>
+    ```ts copy
+        import { useState, useEffect, RefObject } from "react";
+
+        const useInView = (ref: RefObject<HTMLElement>): boolean => {
+           const [hasBeenInView, setHasBeenInView] = useState<boolean>(false);
+
+           useEffect(() => {
+             if (!ref.current) return; // Exit if no element is passed
+
+             const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                  if (entry.isIntersecting && !hasBeenInView) {
+                     //run only one time
+                     setHasBeenInView(true); // Set true when it enters the viewport the first time
+                  }
+                });
+             });
+             observer.observe(ref.current);
+             // Cleanup observer on component unmount
+             return () => {
+                if (ref.current) {
+                  observer.unobserve(ref.current);
+                }
+             };
+           }, [ref]);
+           return hasBeenInView;
+        }
+
+        export default useInView;
+    ```
+
+  </Tab>
+</Tabs>
+
+### Every-Time Trigger
+
+In the version where the hook runs every time the element comes into view, the state `isInView` is updated continuously as the element enters and exits the viewport. This allows for repeated actions each time the element becomes visible, such as playing and pausing animations, or showing and hiding content dynamically based on scrolling.
+
+<Tabs items={["Code"]}>
+  <Tab>
+    ```ts copy
+        import { useState, useEffect, RefObject } from "react";
+
+        const useInView = (ref: RefObject<HTMLElement>): boolean => {
+           const [isInView, setIsInView] = useState<boolean>(false);
+
+           useEffect(() => {
+             if (!ref.current) return; // Exit if no element is passed
+
+             const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                 setIsInView(entry.isIntersecting);
+                });
+             });
+             observer.observe(ref.current);
+             // Cleanup observer on component unmount
+             return () => {
+                if (ref.current) {
+                  observer.unobserve(ref.current);
+                }
+             };
+           }, [ref]);
+           return isInView;
+        }
+
+        export default useInView;
+
+    ```
+
+  </Tab>
+</Tabs>
+
+### Usage
+
+```ts copy
+import useInView from "@/hooks/useInView"
+
+export const Card = () => {
+  const ref = useRef<HTMLDivElement | null>(null);
+    const isInView = useInView(ref);
+
+    return (
+      <div ref={ref}>
+
+      </div>
+    )
+  }
+```

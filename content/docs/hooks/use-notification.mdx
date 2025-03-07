@@ -1,0 +1,68 @@
+---
+title: useNotification
+---
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+The `useNotification` hook provides a simple interface for managing browser notifications using the Web [Notifications API](https://developer.mozilla.org/en-US/docs/Web/API/Notifications_API/Using_the_Notifications_API). It handles notification permission requests and allows you to easily trigger notifications from your components. The hook tracks the current notification permission status and provides a `notify` function to create notifications with a title and optional options, such as body text or icons. This hook is useful for enhancing user experience by delivering timely alerts or updates, allowing your application to communicate important information directly to users, even when they are not actively viewing the page.
+
+<Tabs items={["Code", "Usage"]}>
+  <Tab>
+    ```ts copy
+        import { useState } from "react";
+        const useNotification = () => {
+            const [permission, setPermission] = useState(Notification.permission);
+            // Request notification permission
+            const requestPermission = async () => {
+                if (permission === "default") {
+                    const newPermission = await Notification.requestPermission();
+                    setPermission(newPermission);
+                }
+            };
+
+            // Function to trigger a notification
+            const notify = (title: string, options?: NotificationOptions) => {
+                if (permission === "granted") {
+                    new Notification(title, options);
+                } else if (permission === "default") {
+                    requestPermission().then(() => {
+                        if (Notification.permission === "granted") {
+                            new Notification(title, options);
+                        }
+                    });
+                }
+            };
+
+            return { notify };
+        };
+
+        export default useNotification;
+    ```
+
+  </Tab>
+  <Tab>
+    ```tsx copy
+    import React from "react";
+    import useNotification from "./useNotification";
+
+    const NotificationComponent = () => {
+        const { notify } = useNotification();
+
+        return (
+            <div>
+            <h1>Notification Demo</h1>
+            <button
+                onClick={() => notify("Hello!", { body: "This is a notification." })}
+            >
+                Show Notification
+            </button>
+
+            </div>
+        );
+    };
+
+    export default NotificationComponent;
+    ```
+
+ </Tab>
+</Tabs>

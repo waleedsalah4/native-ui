@@ -1,6 +1,7 @@
+"use client";
 import { useEffect } from "react";
 interface IOutsideClickProps {
-  ref: React.RefObject<HTMLElement>;
+  ref: React.RefObject<HTMLDivElement | null>;
   onClickOutside: () => void;
 }
 

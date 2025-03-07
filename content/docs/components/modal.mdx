@@ -1,0 +1,130 @@
+---
+title: Modal
+description: The modal component offers a robust base for building dialog boxes, pop-ups, overlays, or any other temporary content display.
+---
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+import Modal from "@/components/modals/Modal";
+
+Modals are versatile overlay components that serve as a foundation for creating various interactive elements such as dialogs, popovers, and lightboxes. They effectively isolate content, prevent user interaction with the underlying page, and ensure proper focus management for optimal user experience.
+
+<Tabs items={["Preview", "Usage","Code"]}>
+    <Tab>
+        <div className="bg-black p-8 rounded-md">
+            <Modal showCloseButton>
+                <div className="rounded p-8">Modal content</div>
+            </Modal>
+        </div>
+    </Tab>
+    <Tab>
+        ```tsx copy
+
+            import Modal from "./components/Modal";
+            function Component() {
+                return (
+                    <div className="p-8 rounded-md flex flex-col gap-4">
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            Consequuntur, libero,excepturi doloremque esse quibusdam.
+                         </p>
+                        <Modal showCloseButton>
+                            <div className="rounded p-8">hi modal</div>
+                        </Modal>
+                    </div>
+                );
+            }
+
+            export default Component;
+        ```
+    </Tab>
+    <Tab>
+       ```tsx copy filename="Modal.tsx"
+        import { useState, MouseEvent, ReactNode } from "react";
+        import { cn } from "@/lib/utils";
+        import { X } from "lucide-react";
+
+        interface Props {
+            // open: boolean;
+            triggerText?: string;
+            children: ReactNode;
+            showCloseButton?: boolean;
+            className?: string;
+        }
+
+        function Modal({
+            children,
+            triggerText,
+            showCloseButton = true,
+            className,
+        }: Props) {
+            const [open, setOpen] = useState(false);
+            const handleOpen = () => setOpen(true);
+            const handleCloseModal = () => setOpen(false);
+
+            const handleModal = (event: MouseEvent<HTMLElement>) => {
+                event.stopPropagation();
+            };
+            return (
+                <>
+                    <button
+                        type="button"
+                        onClick={handleOpen}
+                        className="rounded-md bg-[#0ea5e9] p-2 text-white"
+                    >
+                        {triggerText ? triggerText : "Open Modal"}
+                    </button>
+                    {open && (
+                        <div
+                            aria-labelledby="modal-title"
+                            aria-describedby="modal-description"
+                            role="presentation"
+                            className="animate-modal fixed bottom-0 left-0 right-0 top-0 z-[100] bg-[#1A1A1A]/15"
+                            onClick={handleCloseModal}
+                        >
+                            <div
+                                autoFocus={true}
+                                id="popup-modal"
+                                className={cn("absolute left-1/2 top-1/2 w-11/12 -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-4 shadow sm:max-w-lg",className)}
+                                onClick={handleModal}
+                            >
+                                {showCloseButton && (
+                                    <div className="absolute right-4 top-2 inline-block">
+                                        <button
+                                            type="button"
+                                            aria-label="close-modal"
+                                            onClick={handleCloseModal}
+                                        >
+                                            <X color="#1A1A1A" />
+                                        </button>
+                                    </div>
+                                )}
+                                {children}
+                            </div>
+                        </div>
+                    )}
+                </>
+            );
+        }
+
+        export default Modal;
+       ```
+        For the `animate-modal` class you have to add the following code to tailwind.config.ts
+        ```ts
+            keyframes: {
+                modal: {
+                    from: {
+                        opacity: "0",
+                    },
+                    to: {
+                        opacity: "1",
+                    },
+                },
+            },
+            animation: {
+                modal: "modal 200ms ease-in-out",
+            },
+        ```
+        or you can customize the animation with css if you want
+    </Tab>
+
+</Tabs>

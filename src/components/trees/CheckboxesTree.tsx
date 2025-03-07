@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -135,6 +136,7 @@ const CheckboxesTree: React.FC<AppProps> = ({ data, name }) => {
             <input
               type="checkbox"
               id={`checkbox-${nodes.id}`}
+              name={name}
               checked={selectedNodes.includes(nodes.id)}
               onChange={(event) => handleNodeSelect(event, nodes.id)}
               // className="rounded border"
@@ -146,9 +148,7 @@ const CheckboxesTree: React.FC<AppProps> = ({ data, name }) => {
           <div
             className={cn(
               "grid grid-rows-[0fr] overflow-hidden transition-[grid-template-rows] duration-300 ease-in-out",
-              {
-                "grid-rows-[1fr]": isExpanded,
-              }
+              { "grid-rows-[1fr]": isExpanded }
             )}
             aria-hidden={!isExpanded}
           >
