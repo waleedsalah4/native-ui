@@ -16,7 +16,7 @@ function DebounceUsage() {
         type="text"
         placeholder=""
         value={search}
-        handleChange={(event) => setSearch(event.target.value)}
+        onChange={(event) => setSearch(event.target.value)}
       />
       <p className="text-white dark:text-black">{debouncedSearch}</p>
     </div>
