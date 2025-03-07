@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect, RefObject } from "react";
 const useInView = (ref: RefObject<HTMLElement>): boolean => {
   //  const [isInView, setIsInView] = useState<boolean>(false);

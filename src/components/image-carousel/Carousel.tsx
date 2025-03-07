@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -39,7 +40,7 @@ function Carousel({
           />
         ))}
       </div>
-      <div className="absolute right-4 top-2 rounded bg-white px-2">
+      <div className="absolute top-2 right-4 rounded bg-white px-2">
         {curr + 1} of {images.length}
       </div>
       <div className="absolute inset-0 flex items-center justify-between p-4">

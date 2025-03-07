@@ -1,3 +1,4 @@
+"use client";
 import { createContext, useContext, useRef, useState, ReactNode } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -60,7 +61,7 @@ export function AccordionItem({
   const ref = useRef<HTMLDivElement>(null);
 
   return (
-    <li className="border-b border-white/20">
+    <li className="list-none border-b border-white/20">
       <header
         role="button"
         onClick={() => setSelected(open ? null : value)}

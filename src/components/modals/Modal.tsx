@@ -1,3 +1,4 @@
+"use client";
 import { useState, MouseEvent, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
@@ -35,7 +36,7 @@ function Modal({
       {open && (
         <div
           onClick={handleCloseModal}
-          className="animate-modal fixed bottom-0 left-0 right-0 top-0 z-[100] bg-[#1A1A1A]/15"
+          className="animate-modal fixed top-0 right-0 bottom-0 left-0 z-[100] bg-[#1A1A1A]/15"
           aria-labelledby="modal-title"
           aria-describedby="modal-description"
           role="presentation"
@@ -44,13 +45,13 @@ function Modal({
             autoFocus={true}
             id="popup-modal"
             className={cn(
-              "absolute left-1/2 top-1/2 w-11/12 -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-4 shadow sm:max-w-lg",
+              "absolute top-1/2 left-1/2 w-11/12 -translate-x-1/2 -translate-y-1/2 rounded-2xl bg-white p-4 shadow sm:max-w-lg",
               className
             )}
             onClick={handleModal}
           >
             {showCloseButton && (
-              <div className="absolute right-4 top-2 inline-block">
+              <div className="absolute top-2 right-4 inline-block">
                 <button
                   type="button"
                   aria-label="close-modal"

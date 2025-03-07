@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useState } from "react";
 import useClickOutSide from "./useClickOutSide";
 
@@ -22,7 +23,7 @@ const Dropdown = () => {
       {isOpen && (
         <div
           ref={dropdownRef}
-          className="absolute left-10 top-2/3 z-10 p-1 shadow-md"
+          className="absolute top-2/3 left-10 z-10 p-1 shadow-md"
         >
           <span className="bg-black p-2 text-center text-white">
             Click outside me

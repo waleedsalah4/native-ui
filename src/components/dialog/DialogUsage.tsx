@@ -1,3 +1,4 @@
+"use client";
 import { useRef } from "react";
 import Dialog from "./Dialog";
 
@@ -8,9 +9,11 @@ function DialogUsage() {
     if (!dialogRef.current) {
       return;
     }
-    dialogRef.current.hasAttribute("open")
-      ? dialogRef.current.close()
-      : dialogRef.current.showModal();
+    if (dialogRef.current.hasAttribute("open")) {
+      dialogRef.current.close();
+    } else {
+      dialogRef.current.showModal();
+    }
   }
 
   return (

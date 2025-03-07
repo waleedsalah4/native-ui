@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 const useNotification = () => {
   const [permission, setPermission] = useState(Notification.permission);

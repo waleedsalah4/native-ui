@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 
 export default function TailwindSwitch() {
@@ -10,8 +11,9 @@ export default function TailwindSwitch() {
         aria-checked={checked ? "true" : "false"}
         data-state={checked ? "checked" : "unchecked"}
         // value="on"
+        aria-labelledby="switch button"
         onClick={() => setChecked(!checked)}
-        className="focus-visible:ring-ring focus-visible:ring-offset-background peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-[#0099ff] data-[state=unchecked]:bg-[#bbb]"
+        className="focus-visible:ring-ring focus-visible:ring-offset-background peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-[#0099ff] data-[state=unchecked]:bg-[#bbb]"
         id="airplane-mode"
       >
         <span
@@ -20,7 +22,7 @@ export default function TailwindSwitch() {
         ></span>
       </button>
       <label
-        className="cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        className="cursor-pointer text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
         htmlFor="airplane-mode"
       >
         Mode

@@ -1,11 +1,10 @@
-import nextra from "nextra";
+import { createMDX } from 'fumadocs-mdx/next';
+
+const withMDX = createMDX();
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const config = {
+  reactStrictMode: true,
+};
 
-const withNextra = nextra({
-  theme: "nextra-theme-docs",
-  themeConfig: "./theme.config.jsx",
-});
-
-export default withNextra(nextConfig);
+export default withMDX(config);
