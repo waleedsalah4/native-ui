@@ -1,12 +1,16 @@
 import AboutUs from "@/docs-components/home/about-us/AboutUs";
+import { Ripple } from "@/docs-components/home/riple/Riple";
 // import Technologies from "@/docs-components/home/technologies/Technologies";
 import Link from "next/link";
 
 export default function HomePage() {
   return (
     <div className="space-y-20">
-      <section className="container flex min-h-screen flex-1 flex-col justify-center text-center">
-        <div className="flex flex-col justify-center space-y-10 text-center">
+      {/* <section className="relative container flex min-h-screen flex-1 flex-col justify-center text-center">
+       */}
+      <section className="relative container flex min-h-screen w-full items-center justify-center overflow-hidden">
+        <Ripple className="flex items-center justify-center" />
+        <div className="z-10 flex flex-col justify-center space-y-10 text-center">
           <div className="space-y-8">
             <h1 className="bg-gradient-to-r from-blue-500 to-red-500 bg-clip-text text-3xl font-bold tracking-tighter text-transparent sm:text-5xl xl:text-6xl dark:from-white dark:to-gray-500">
               Welcome to our humble UI Components documentation
@@ -16,6 +20,7 @@ export default function HomePage() {
               design that it&#39;s easy to customize to your&#39;s
             </p>
           </div>
+
           <div className="mx-auto w-full max-w-sm space-y-2">
             <Link
               href="/docs/getting-started"

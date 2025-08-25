@@ -36,7 +36,7 @@ function Header() {
 
         <Link
           href="/contact-us"
-          className="h-10 rounded-full bg-[#6f606633] px-4 py-2 text-center text-sm font-bold leading-relaxed text-[#F8FAFC] shadow-md"
+          className="h-10 rounded-full bg-[#6f606633] px-4 py-2 text-center text-sm leading-relaxed font-bold text-[#F8FAFC] shadow-md"
         >
           Contact us
         </Link>
