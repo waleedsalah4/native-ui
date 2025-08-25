@@ -5,7 +5,7 @@ function AboutUs() {
   return (
     <section className="container grid grid-cols-1 md:grid-cols-2">
       <div className="space-y-4">
-        <h2 className="text-lg font-bold md:text-3xl">Native UI</h2>
+        <h2 className="font-mono text-lg font-bold md:text-3xl">Native UI</h2>
         <p>
           This documentation provides a collection of reusable React components
           and hooks that are designed with built-in functionality and a
